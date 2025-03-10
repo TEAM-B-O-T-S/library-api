@@ -1,18 +1,29 @@
 import { LibraryModel } from "../model/library.js";
 
+// export const addBook = async (req, res) => {
+//   const addABook = await LibraryModel.find({});
+//   res.status(200).json({message: 'Book created successfully' });
+// };
 export const addBook = async (req, res) => {
-  const addABook = await LibraryModel.find({});
-  res.status(200).json({ jobs: addABook });
+  try {
+    const newBook = new LibraryModel(req.body); // create a new book instance with the data sent in the request body
+    await newBook.save(); // save the new book to the database
+    res.status(201).json({ message: 'Book created successfully', book: newBook });
+  } catch (error) {
+    res.status(400).json({ message: 'Error adding book', error: error.message });
+  }
 };
+
+
 
 export const getBooks = async (req, res) => {
   const allBooks = await LibraryModel.find({});
-  res.status(200).json({ jobs: allBooks });
+  res.status(200).json({ books: allBooks });
 };
 
 export const getBook = async (req, res) => {
-  const oneJob = await JobModel.findById(req.params.id);
-  res.status(200).json({ jobs: oneJob });
+  const oneBook = await LibraryModel.findById(req.params.id);
+  res.status(200).json({ books: oneBook });
 };
 
 export const updateEntireBook = async (req, res, next) => {
