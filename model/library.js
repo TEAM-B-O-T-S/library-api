@@ -15,4 +15,4 @@ const librarySchema = new Schema(
   }
 );
 
-export const LibraryModel = mongoose.model("Library", librarySchema);
+export const LibraryModel = model("Library", librarySchema);
