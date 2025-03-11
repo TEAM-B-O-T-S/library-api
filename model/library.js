@@ -7,7 +7,7 @@ const librarySchema = new Schema(
     description: { type: String, required: true },
     genre: { type: String },
     status: { type: String },
-    year: { type: Number },
+    publishedYear: { type: Number, required: true },
     quantity: { type: Number },
   },
   {
