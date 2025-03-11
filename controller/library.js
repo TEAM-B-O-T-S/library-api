@@ -1,16 +1,28 @@
 import { LibraryModel } from "../model/library.js";
+import { addbookValidator } from "../validators/library.js";
 
 // export const addBook = async (req, res) => {
 //   const addABook = await LibraryModel.find({});
 //   res.status(200).json({message: 'Book created successfully' });
 // };
-export const addBook = async (req, res) => {
-  try {
-    const newBook = new LibraryModel(req.body); // create a new book instance with the data sent in the request body
-    await newBook.save(); // save the new book to the database
-    res.status(201).json({ message: 'Book created successfully', book: newBook });
-  } catch (error) {
-    res.status(400).json({ message: 'Error adding book', error: error.message });
+export const addBook = async (req, res, next) => {
+  // try {
+  //   const newBook = new LibraryModel(req.body); // create a new book instance with the data sent in the request body
+  //   await newBook.save(); // save the new book to the database
+  //   res.status(201).json({ message: 'Book created successfully', book: newBook });
+  // } catch (error) {
+  //   res.status(400).json({ message: 'Error adding book', error: error.message });
+  // }
+  try{
+    const {error, value} = addbookValidator.validate(req.body,{abortEarly: false});
+    if (error) {
+      return res.status(422).json(error);
+    }
+    const result = await LibraryModel.create(value);
+    res.status(201).json(result);
+
+  }catch (error) {
+    next(error);
   }
 };
 
