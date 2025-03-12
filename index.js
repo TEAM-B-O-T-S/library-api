@@ -1,5 +1,5 @@
 import express from "express";
-const port = process.env.port;
+const port = process.env.PORT;
 import "dotenv/config";
 import mongoose from "mongoose";
 import libraryRouter from "./routes/library.js";
