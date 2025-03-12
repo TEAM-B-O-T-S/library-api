@@ -1,22 +1,20 @@
-import express from 'express';
-const port = process.env.port;
+import express from "express";
+const port = process.env.PORT || 3000;
 import "dotenv/config";
 import mongoose from "mongoose";
-import libraryRouter from './routes/library.js';
-
+import libraryRouter from "./routes/library.js";
+import cors from "cors";
 
 // Make database connection
 await mongoose.connect(process.env.MONGO_URI);
-
 
 //Create an express app
 const app = express();
 
 // Use global middlewares
 app.use(express.json());
-
+app.use(cors);
 app.use(libraryRouter);
-
 
 // Listen for incoming request
 app.listen(port, () => {

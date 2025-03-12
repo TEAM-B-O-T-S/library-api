@@ -13,20 +13,23 @@ export const addBook = async (req, res, next) => {
   // } catch (error) {
   //   res.status(400).json({ message: 'Error adding book', error: error.message });
   // }
-  try{
-    const {error, value} = addbookValidator.validate(req.body,{abortEarly: false});
+  try {
+    const { error, value } = addbookValidator.validate(
+      {
+        ...req.body,
+        image: req.file.filename,
+      },
+      { abortEarly: false }
+    );
     if (error) {
       return res.status(422).json(error);
     }
     const result = await LibraryModel.create(value);
     res.status(201).json(result);
-
-  }catch (error) {
+  } catch (error) {
     next(error);
   }
 };
-
-
 
 export const getBooks = async (req, res) => {
   const allBooks = await LibraryModel.find({});
