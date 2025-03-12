@@ -1,5 +1,4 @@
 import express from "express";
-const port = process.env.port;
 import "dotenv/config";
 import mongoose from "mongoose";
 import libraryRouter from "./routes/library.js";
@@ -17,6 +16,7 @@ app.use(cors);
 app.use(libraryRouter);
 
 // Listen for incoming request
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
