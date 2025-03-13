@@ -1,5 +1,6 @@
 // import { required } from "joi";
 import { Schema, model, modelNames } from "mongoose";
+import normalize from "normalize-mongoose";
 
 const librarySchema = new Schema(
   {
@@ -17,4 +18,5 @@ const librarySchema = new Schema(
   }
 );
 
+librarySchema.plugin(normalize);
 export const LibraryModel = model("Library", librarySchema);
