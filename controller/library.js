@@ -17,7 +17,7 @@ export const addBook = async (req, res, next) => {
     const { error, value } = addbookValidator.validate(
       {
         ...req.body,
-        image: req.file.filename,
+        image: req.file?.filename,
       },
       { abortEarly: false }
     );
@@ -38,7 +38,7 @@ export const getBooks = async (req, res) => {
 
 export const getBook = async (req, res) => {
   const oneBook = await LibraryModel.findById(req.params.id);
-  res.status(200).json({ books: oneBook });
+  res.status(200).json({ book: oneBook });
 };
 
 export const updateEntireBook = async (req, res, next) => {
